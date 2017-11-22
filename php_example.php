@@ -7,8 +7,8 @@ use PHPUnit\Framework\TestCase;
 // composer global require phpunit/phpunit
 class ToDoTest extends TestCase {
 
-    private $username = "barton@acclivyx.com";
-    private $authkey = "ub7caa03a3a6d14f";    
+    private $username = "";
+    private $authkey = "";    
     private $seleniumTestId="";
     protected $driver;    
     public $ch;
