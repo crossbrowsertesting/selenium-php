@@ -6,9 +6,8 @@ use Facebook\WebDriver\WebDriverExpectedConditions;
 use PHPUnit\Framework\TestCase;
 // composer global require phpunit/phpunit
 class ToDoTest extends TestCase {
-
-    private $username = "";
-    private $authkey = "";    
+    protected $username = "";
+    protected $authkey = "";
     private $seleniumTestId="";
     protected $driver;    
     public $ch;
@@ -31,7 +30,6 @@ class ToDoTest extends TestCase {
 
     public function takeScreenShot() {
         $url = 'https://crossbrowsertesting.com/api/v3/selenium/' . $this->seleniumTestId . '/snapshots';
-        echo "\n" . $url . "\n";
 
         $ch = curl_init();    
         curl_setopt($ch, CURLOPT_URL,$url);
@@ -41,17 +39,8 @@ class ToDoTest extends TestCase {
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, "$this->username:$this->authkey");
         
-        $result = '';
-        try {
-            $result = curl_exec($ch);
-            $jsonData = json_decode($result);
-            var_dump($jsonData);            
-        } catch (\Exception $e) {
-            echo "OOOOps - exception!\n";
-            var_dump($e);
-        } finally {
-            curl_close($ch);
-        }
+        $result = curl_exec($ch);
+        $jsonData = json_decode($result);
     }
 
     public function setUp() {
@@ -79,20 +68,25 @@ class ToDoTest extends TestCase {
             $this->takeScreenShot();
             print "Clicking Checkbox\n";
             $this->driver->findElement(WebDriverBy::name("todo-4"))->click();
+            $this->takeScreenShot();
+            
             print "Clicking Checkbox\n";
-            $this->takeScreenShot();            
             $this->driver->findElement(WebDriverBy::name("todo-5"))->click();
+            $this->takeScreenShot();            
             $elems = $this->driver->findElements(WebDriverBy::className("done-true"));
             $this->assertEquals(2, count($elems));
+            
             print "Entering Text\n";
-            $this->takeScreenShot();
             $this->driver->findElement(WebDriverBy::id("todotext"))->sendKeys("Run your first Selenium test");
+            $this->takeScreenShot();
+            
             print "Adding todo to the list\n";
             $this->driver->findElement(WebDriverBy::id("addbutton"))->click();
-            $this->takeScreenShot();            
-            $spanText = $this->driver->findElement(WebDriverBy::xpath("/html/body/div/div/div/ul/li[6]/span"))->getText();
             $this->takeScreenShot();
+
+            $spanText = $this->driver->findElement(WebDriverBy::xpath("/html/body/div/div/div/ul/li[6]/span"))->getText();
             $this->assertEquals("Run your first Selenium test", $spanText);
+            
             print "Archiving old todos\n";
             $this->driver->findElement(WebDriverBy::linkText("archive"))->click();
             $this->takeScreenShot();
