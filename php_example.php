@@ -63,9 +63,10 @@ class ToDoTest extends TestCase {
                               "platform" => "Windows 10",
                               "record_video"=> "true",
                               "take_snapshot"=> "true",
-                              "record_network"=> "true",);
+                              "record_network"=> "true");
+        
         $host = "http://" . $this->username . ":" . $this->authkey . "@hub.crossbrowsertesting.com:80/wd/hub";
-        $this->driver = RemoteWebDriver::create($host, $capabilities );
+        $this->driver = RemoteWebDriver::create($host, $capabilities, 100000, 100000 );
         $this->getSeleniumTestId();
     }
     
