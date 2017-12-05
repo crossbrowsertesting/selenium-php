@@ -1,7 +1,10 @@
 {
-    "require": {
+  "require": {
         "facebook/webdriver": "1.1.3",
 	"phpunit/phpunit": "^4.8",
-        "rmccue/requests": "^1.6"
-    }
+        "rmccue/requests": "^1.6"    
+    },
+  "scripts": {
+    "run_tests":"./vendor/bin/phpunit ./php_example.php  2>&1 | tee ./tests.log"
+  }
 }
