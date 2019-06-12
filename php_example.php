@@ -20,7 +20,7 @@ class ToDoTest extends PHPUnit_Framework_TestCase {
 										 "os_api_name"=> "Win10",
 										 "record_video"=> "true",
 										 "take_snapshot"=> "true",
-										 "record_network"=> "true"
+										 "record_network"=> "false"
 										 );
         $host = "http://" . $username . ":" . $authkey . "@hub.crossbrowsertesting.com:80/wd/hub";
         $this->driver = RemoteWebDriver::create($host, $capabilities);
